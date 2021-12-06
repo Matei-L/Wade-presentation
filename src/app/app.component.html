@@ -1,0 +1,43 @@
+<router-outlet></router-outlet>
+<h1>Node-Quadstore Demo</h1>
+<ul ngbNav #nav="ngbNav" [destroyOnHide]="false" class="nav-tabs">
+  <li ngbNavItem>
+    <a ngbNavLink>1. Yasgui</a>
+    <ng-template ngbNavContent>
+      <div id="yasgui"></div>
+    </ng-template>
+  </li>
+  <li ngbNavItem>
+    <a ngbNavLink>1. QuadStore</a>
+    <ng-template ngbNavContent>
+      <div class="row">
+        <div class="col-sm-auto"><button type="button" class="btn btn-primary" (click)="updateQuads()">Update Quads</button></div>
+        <div class="col-sm-auto"><button type="button" class="btn btn-info" (click)="getQuads()">Get Quads</button></div>
+        <div class="col-sm-auto"><button type="button" class="btn btn-secondary" (click)="insertDummyQuads()">Insert Dummy Quads</button></div>
+      </div>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Subject</th>
+          <th scope="col">Predicate</th>
+          <th scope="col">Object</th>
+          <th scope="col">Graph</th>
+          <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let quad of quads; index as i">
+          <th scope="row">{{ i + 1 }}</th>
+          <td><input type="text" [(ngModel)]="quad.subject.value"></td>
+          <td><input type="text" [(ngModel)]="quad.predicate.value"></td>
+          <td><input type="text" [(ngModel)]="quad.object.value"></td>
+          <td><input type="text" [(ngModel)]="quad.graph.value"></td>
+          <td><button type="button" class="btn btn-danger" (click)="deleteQuad(i)">Delete</button></td>
+        </tr>
+        </tbody>
+      </table>
+    </ng-template>
+  </li>
+</ul>
+<div [ngbNavOutlet]="nav"></div>
