@@ -58,14 +58,11 @@ WHERE
         ?region wdt:P17 wd:Q30.
         ?region wdt:P31 wd:Q82794
       
-        bind(wdt:P17 as ?isPartOf) 
-        bind(wd:Q30 as ?country) 
+        bind("is-in-country" as ?isPartOf) 
+        bind("United States" as ?country) 
       
-      }`
-    },
-    {
-      name: 'Select Wikidata data from Quadstore',
-      value: `SELECT * WHERE { GRAPH  <https://query.wikidata.org/bigdata/namespace/wdq/sparql> { ?subject ?predicate ?object }}`
+      }
+LIMIT 10`
     },
     {
       name: 'Select from DBPedia',
@@ -78,12 +75,18 @@ WHERE
       {
         ?region rdf:type dbo:Region.
         ?region dbo:country dbr:United_States 
-        bind(dbo:country as ?isPartOf) 
-        bind(dbr:United_States as ?country) 
-      }`
+        bind("is-in-country" as ?isPartOf) 
+        bind("United States" as ?country) 
+      }
+
+LIMIT 10`
     },
     {
-      name:'Select DBPedia data from Quadstore',
-      value: `SELECT * WHERE { GRAPH  <https://dbpedia.org/sparql> { ?subject ?predicate ?object }}`
+      name:"Select United States regions from Quadstore",
+      value:'SELECT * WHERE { GRAPH  ?graph { ?region ?isPartOf "United States". bind( "United States" as ?country) }}'
+    },
+    {
+      name:"Select Belgium regions from Quadstore",
+      value: 'SELECT * WHERE { GRAPH  ?graph  { ?region ?isPartOf "Belgium". bind( "Belgium" as ?country) }  }'
     }
   ]
