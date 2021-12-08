@@ -6,7 +6,7 @@
     <ng-template ngbNavContent>
       <ngb-alert *ngIf="!!alert" type="danger" (closed)="closeAlert()">{{alert}}</ngb-alert>
       <div class="row">
-        <div class="col-sm-auto"><button type="button" class="btn btn-primary" (click)="sparqlQuadStore()">Query Quadstore</button></div>
+        <div class="col-sm-auto"><button type="button" class="btn btn-primary" (click)="sparqlQuadStore()">Sparql Quadstore</button></div>
         <div class="col-sm-auto"><button type="button" class="btn btn-info" (click)="pushIasguiResultToQuadstore()">Send Result To Quadstore</button></div>
       </div>
       <div id="yasgui"></div>

@@ -81,7 +81,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   upsertQuadStore(): void {
     if(!this.quadstore) {
       this.quadstore = new Quadstore({
-        backend: leveljs('quadstore'),
+        backend: leveljs('quadstore.db'),
         comunica: newEngine(),
         dataFactory,
       });
@@ -98,15 +98,15 @@ export class AppComponent implements OnInit, AfterViewInit {
   async insertDummyQuads(): Promise<void> {
     await this.quadstore.open();
     await this.quadstore.multiPut([
-      this.buildQuad('<http://example/book1>', '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>', '<http://schema.org/Book>', '<http://example/shelf_A>'),
-      this.buildQuad('<http://example/book1>', '<http://schema.org/author>', 'A.N.Other', '<http://example/shelf_A>'),
-      this.buildQuad('<http://example/book1>', '<http://schema.org/name>', '"A new book"', '<http://example/shelf_A>'),
-      this.buildQuad('<http://example/book2>', '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>', '<http://schema.org/Book>', '<http://example/shelf_A>'),
-      this.buildQuad('<http://example/book2>', '<http://schema.org/author>', "T.H.Same", '<http://example/shelf_A>'),
-      this.buildQuad('<http://example/book2>', '<http://schema.org/name>', "A book", '<http://example/shelf_A>'),
-      this.buildQuad('<http://example/book3>', '<http://www.w3.org/1999/02/22-rdf-syntax-ns#type>', '<http://schema.org/Book>', '<http://example/shelf_B>'),
-      this.buildQuad('<http://example/book3>', '<http://schema.org/author>', "S.O.M.Other", '<http://example/shelf_B>'),
-      this.buildQuad('<http://example/book3>', '<http://schema.org/name>', "A really old book", '<http://example/shelf_B>'),
+      this.buildQuad('http://example/book1', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://schema.org/Book', 'http://example/shelf_A'),
+      this.buildQuad('http://example/book1', 'http://schema.org/author', 'A.N.Other', 'http://example/shelf_A'),
+      this.buildQuad('http://example/book1', 'http://schema.org/name', 'A new book', 'http://example/shelf_A'),
+      this.buildQuad('http://example/book2', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://schema.org/Book', 'http://example/shelf_A'),
+      this.buildQuad('http://example/book2', 'http://schema.org/author', "T.H.Same", 'http://example/shelf_A'),
+      this.buildQuad('http://example/book2', 'http://schema.org/name', "A book", 'http://example/shelf_A'),
+      this.buildQuad('http://example/book3', 'http://www.w3.org/1999/02/22-rdf-syntax-ns#type', 'http://schema.org/Book', 'http://example/shelf_B'),
+      this.buildQuad('http://example/book3', 'http://schema.org/author', "S.O.M.Other", 'http://example/shelf_B'),
+      this.buildQuad('http://example/book3', 'http://schema.org/name', "A really old book", 'http://example/shelf_B'),
     ]);
     await this.getQuads();
   }
