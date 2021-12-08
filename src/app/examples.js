@@ -44,5 +44,46 @@ WHERE
 {
   GRAPH  <http://example/shelf_A> { <http://example/book1> <http://schema.org/author> "A.N.Other" }
 }`
+    },
+    {
+      name: 'Select from WikiData',
+      value: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+      
+      SELECT DISTINCT  ?region ?isPartOf ?country
+      where
+      {
+      
+        ?region wdt:P17 wd:Q30.
+        ?region wdt:P31 wd:Q82794
+      
+        bind(wdt:P17 as ?isPartOf) 
+        bind(wd:Q30 as ?country) 
+      
+      }`
+    },
+    {
+      name: 'Select Wikidata data from Quadstore',
+      value: `SELECT * WHERE { GRAPH  <https://query.wikidata.org/bigdata/namespace/wdq/sparql> { ?subject ?predicate ?object }}`
+    },
+    {
+      name: 'Select from DBPedia',
+      value: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+      PREFIX dbo: <http://dbpedia.org/ontology/>
+      PREFIX dbr: <http://dbpedia.org/resource/>
+      
+      select * 
+      where
+      {
+        ?region rdf:type dbo:Region.
+        ?region dbo:country dbr:United_States 
+        bind(dbo:country as ?isPartOf) 
+        bind(dbr:United_States as ?country) 
+      }`
+    },
+    {
+      name:'Select DBPedia data from Quadstore',
+      value: `SELECT * WHERE { GRAPH  <https://dbpedia.org/sparql> { ?subject ?predicate ?object }}`
     }
   ]
