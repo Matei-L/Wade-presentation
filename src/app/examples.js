@@ -46,7 +46,7 @@ WHERE
 }`
     },
     {
-      name: 'Select from WikiData',
+      name: 'Select United States regions from WikiData',
       value: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
       PREFIX wd: <http://www.wikidata.org/entity/>
       PREFIX wdt: <http://www.wikidata.org/prop/direct/>
@@ -64,8 +64,27 @@ WHERE
       }
 LIMIT 10`
     },
+	{
+      name: 'Select Belgium regions from WikiData',
+      value: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+      PREFIX wd: <http://www.wikidata.org/entity/>
+      PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+      
+      SELECT DISTINCT  ?region ?isPartOf ?country
+      where
+      {
+      
+        ?region wdt:P17 wd:Q31.
+        ?region wdt:P31 wd:Q82794
+      
+        bind("is-in-country" as ?isPartOf) 
+        bind("Belgium" as ?country) 
+      
+      }
+LIMIT 10`
+    },
     {
-      name: 'Select from DBPedia',
+      name: 'Select United States regions from DBPedia',
       value: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
       PREFIX dbo: <http://dbpedia.org/ontology/>
       PREFIX dbr: <http://dbpedia.org/resource/>
@@ -77,6 +96,23 @@ LIMIT 10`
         ?region dbo:country dbr:United_States 
         bind("is-in-country" as ?isPartOf) 
         bind("United States" as ?country) 
+      }
+
+LIMIT 10`
+    },
+	{
+      name: 'Select Belgium regions from DBPedia',
+      value: `PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+      PREFIX dbo: <http://dbpedia.org/ontology/>
+      PREFIX dbr: <http://dbpedia.org/resource/>
+      
+      select * 
+      where
+      {
+        ?region rdf:type dbo:Region.
+        ?region dbo:country dbr:Belgium 
+        bind("is-in-country" as ?isPartOf) 
+        bind("Belgium" as ?country) 
       }
 
 LIMIT 10`
